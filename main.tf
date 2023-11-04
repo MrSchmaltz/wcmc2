@@ -17,17 +17,27 @@ resource "azurerm_storage_account" "example" {
   tags                     = var.tags
 }
 
+resource "azurerm_app_service_plan" "example" {
+  name                = var.app_service_plan_name
+  location            = azurerm_resource_group.example.location
+  resource_group_name = azurerm_resource_group.example.name
+  sku {
+    tier = "Standard"
+    size = "S1"
+  }
+}
+
 resource "azurerm_linux_function_app" "example" {
-  name                            = var.function_app_name
-  location                        = azurerm_resource_group.example.location
-  resource_group_name             = azurerm_resource_group.example.name
-  storage_account_name            = azurerm_storage_account.example.name
-  tags                            = var.tags
-  #ADDING SITE CONFIG
+  name               = var.function_app_name
+  location           = azurerm_resource_group.example.location
+  resource_group_name = azurerm_resource_group.example.name
+  app_service_plan_id  = azurerm_app_service_plan.example.id
+  storage_account_name = azurerm_storage_account.example.name
+  version = "~3"
+
   site_config {
-    linux_fx_version = "RUBY|2.5"
     app_settings = {
-      "MY_SETTING" = "my_value"
+      "FUNCTIONS_WORKER_RUNTIME" = "node"
     }
   }
 }
