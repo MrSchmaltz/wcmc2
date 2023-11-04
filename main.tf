@@ -26,7 +26,11 @@ resource "azurerm_service_plan" "example" {
     tier = "Standard"
     size = "S1"
   }
+  
+  os_type   = "Linux"
+  sku_name  = "Basic"
 }
+
 
 resource "azurerm_linux_function_app" "example" {
   name                = var.function_app_name
@@ -35,9 +39,8 @@ resource "azurerm_linux_function_app" "example" {
 
   app_service_plan_id = azurerm_service_plan.example.id
 
-  site_config {
-    app_settings = {
-      "FUNCTIONS_WORKER_RUNTIME" = "node"
-    }
+  app_setting {
+    "FUNCTIONS_WORKER_RUNTIME" = "node"
   }
 }
+
