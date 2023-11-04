@@ -26,6 +26,6 @@ resource "azurerm_function_app" "example" {
     "FUNCTIONS_WORKER_RUNTIME" = "node"
   }
 
-  storage_account_name       = "storage_account_name"
+  storage_account_name = azurerm_storage_account.example.name
   storage_account_access_key = "storage_account_access_key"
 }
