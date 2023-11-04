@@ -17,6 +17,7 @@ data "azurerm_storage_account" "example" {
 
 output "storage_account_connection_string" {
   value = data.azurerm_storage_account.example.primary_connection_string
+  sensitive = true
 }
 
 output "storage_account_access_key" {
