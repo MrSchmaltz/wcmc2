@@ -26,15 +26,18 @@ resource "azurerm_service_plan" "example" {
     tier = "Standard"
     size = "S1"
   }
+
+  os_type   = "Linux"
+  sku_name  = "linux"
 }
 
 
 resource "azurerm_linux_function_app" "example" {
-  name               = var.function_app_name
-  location           = azurerm_resource_group.example.location
+  name                = var.function_app_name
+  location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
-  app_service_plan_id = azurerm_service_plan.example.id
-  storage_account_name = azurerm_storage_account.example.name
+
+  app_service_plan_ids = [azurerm_service_plan.example.id]
 
   site_config {
     app_settings = {
