@@ -24,7 +24,7 @@ variable "storage_account_name" {
 variable "function_app_name" {
   description = "Name of function app"
   type        = string
-  default     = "devops-interview-staging"
+  default     = "wcmc-devops-interview-staging"
 }
 variable "app_service_plan_name" {
   type    = string
