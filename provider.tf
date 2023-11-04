@@ -27,4 +27,3 @@ output "storage_account_connection_string" {
 output "storage_account_access_key" {
   value = split(";", data.azurerm_storage_account.example.primary_connection_string)[2]
 }
-
