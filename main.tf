@@ -31,7 +31,6 @@ resource "azurerm_service_plan" "example" {
   sku_name  = "Basic"
 }
 
-
 resource "azurerm_linux_function_app" "example" {
   name                = var.function_app_name
   location            = azurerm_resource_group.example.location
@@ -39,8 +38,11 @@ resource "azurerm_linux_function_app" "example" {
 
   app_service_plan_id = azurerm_service_plan.example.id
 
-  app_setting {
-    FUNCTIONS_WORKER_RUNTIME = "node"
+  site_config {
+    app_settings = {
+      FUNCTIONS_WORKER_RUNTIME = "node"
+    }
   }
 }
+
 
