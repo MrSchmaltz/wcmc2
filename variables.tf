@@ -26,3 +26,7 @@ variable "function_app_name" {
   type        = string
   default     = "devops-interview-staging"
 }
+variable "app_service_plan_name" {
+  type    = string
+  description = "Name for the App Service Plan"
+}
