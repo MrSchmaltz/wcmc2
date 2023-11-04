@@ -40,7 +40,7 @@ resource "azurerm_linux_function_app" "example" {
   app_service_plan_id = azurerm_service_plan.example.id
 
   app_setting {
-    "FUNCTIONS_WORKER_RUNTIME" = "node"
+    FUNCTIONS_WORKER_RUNTIME = "node"
   }
 }
 
