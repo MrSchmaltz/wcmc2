@@ -2,6 +2,11 @@ provider "azurerm" {
   features {}
 }
 
+resource "azurerm_resource_group" "example" {
+  name     = "example-resources"
+  location = "East US"
+}
+
 resource "azurerm_storage_account" "example" {
   name                     = "mystorageaccount"
   resource_group_name      = azurerm_resource_group.example.name
@@ -10,15 +15,16 @@ resource "azurerm_storage_account" "example" {
   account_replication_type = "LRS"
 }
 
-data "azurerm_storage_account_key_v2" "example" {
-  storage_account_id = azurerm_storage_account.example.id
-  key_name           = "key1"
+data "azurerm_storage_account" "example" {
+  name                     = azurerm_storage_account.example.name
+  resource_group_name      = azurerm_storage_account.example.resource_group_name
 }
 
 output "storage_account_connection_string" {
-  value = azurerm_storage_account.example.primary_connection_string
+  value = data.azurerm_storage_account.example.primary_connection_string
 }
 
 output "storage_account_access_key" {
-  value = data.azurerm_storage_account_key_v2.example.value
+  value = split(";", data.azurerm_storage_account.example.primary_connection_string)[2]
 }
+
