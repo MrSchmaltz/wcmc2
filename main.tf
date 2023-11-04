@@ -27,6 +27,7 @@ resource "azurerm_service_plan" "example" {
     size = "S1"
   }
 }
+
 resource "azurerm_linux_function_app" "example" {
   name                = var.function_app_name
   location            = azurerm_resource_group.example.location
