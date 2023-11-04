@@ -23,4 +23,11 @@ resource "azurerm_linux_function_app" "example" {
   resource_group_name             = azurerm_resource_group.example.name
   storage_account_name            = azurerm_storage_account.example.name
   tags                            = var.tags
+  #ADDING SITE CONFIG
+  site_config {
+    linux_fx_version = "RUBY|2.5"
+    app_settings = {
+      "MY_SETTING" = "my_value"
+    }
+  }
 }
